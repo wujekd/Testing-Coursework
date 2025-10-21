@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,16 +8,18 @@ public class Profile {
 
 	public Profile(List<Grade> g) {
 		
-		if (g.isEmpty() || g == null) {
+//		if (g.isEmpty() || g == null) {  // ERROR couldn't check for empty if null
+		if (g == null || g.isEmpty()) {
 		throw new IllegalArgumentException("List empty or null!");
 		}
 		for (Grade grade : g) {
 			if (grade.classify() == Classification.Fail) {
-				throw new IllegalArgumentException("Grade cannot be below pass"); // IT DOESNT CHECK HOW MANY GRADES ARE ON THE LIST !!
-			}
+				throw new IllegalArgumentException("Grade cannot be below pass");
+			} // TODO: IT DOESNT CHECK HOW MANY GRADES ARE ON THE LIST !! ?
 		}
 		this.grades = Collections.unmodifiableList(new ArrayList<>(g));
 	}
+	
 	
 	// Figure 2 (top row):
     // If ≥50% FIRST → FIRST
@@ -59,12 +59,11 @@ public class Profile {
             return true;
         }
         // count THIRD grades
-        int n = grades.size();
         int thirds = 0;
         for (Grade g : grades) {
             if (g.classify() == Classification.Third) thirds++;
         }
         // "no more than 25%" → thirds / n ≤ 0.25  ⇒ 4 * thirds ≤ n
-        return 4 * thirds <= n;
+        return 4 * thirds <= grades.size();
     }
 }

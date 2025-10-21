@@ -55,6 +55,11 @@ public class Grade {
         return new Grade(p);
 	}
 
+	@Override
+	public String toString() {
+	    // e.g. "5 points (UpperSecond)"
+	    return "grade: " + classify() + " |";
+	}
 
 	
 }
