@@ -74,21 +74,21 @@ class DegreeTest {
 	public void classifiesCorrectly(List<Grade> gradesY2, List<Grade> gradesY3, Classification result) {
 		Degree instance = new Degree(gradesY2, gradesY3);
 //		System.out.println("degree: " instance.classify());
-		System.out.print("profile5: " + instance.level5profile.classify() + "isClear: " + instance.level5profile.isClear());
-		System.out.println(" profile6: " + instance.level6profile.classify() + "isClear: " + instance.level5profile.isClear());
+//		System.out.print("profile5: " + instance.level5profile.classify() + "isClear: " + instance.level5profile.isClear());
+//		System.out.println(" profile6: " + instance.level6profile.classify() + "isClear: " + instance.level5profile.isClear());
 		assertEquals(instance.classify(), result);
 	}
 	public static Stream<Arguments> classifyParams(){
 		return Stream.of(
 				Arguments.of( // Both have the same grade 
-					List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(4)),
-					List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(4)),
-					Classification.First),
+						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(4)),
+						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(4)),
+						Classification.First),
 				Arguments.of( // Level 6 is better
 						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
 						List.of(new Grade(5),new Grade(5),new Grade(5),new Grade(5)),
 						Classification.UpperSecond),
-				Arguments.of(
+				Arguments.of( // Level 5 is better
 						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
 						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
 						Classification.LowerSecond),

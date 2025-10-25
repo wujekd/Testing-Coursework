@@ -14,10 +14,10 @@ class GradeTest {
 	@DisplayName("Constructor invalid boundaries")
 	@ParameterizedTest
 	@MethodSource("invalidConstructorParams")
-	public void invalidBoudariesTest(int percent){
+	public void invalidBoudariesTest(int points){
 		assertThrows(IllegalArgumentException.class,
 				() ->{
-					new Grade(percent);
+					new Grade(points);
 				});
 	}
 	private static Stream<Arguments> invalidConstructorParams(){

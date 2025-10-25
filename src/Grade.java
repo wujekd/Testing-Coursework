@@ -27,7 +27,6 @@ public class Grade {
 		if (g < -1 || g > 100) {
 			throw new IllegalArgumentException();
 		}
-		if (g == -1) return new Grade(20);
 		
 		final int p;
         if      (g >= 80) p = 1;

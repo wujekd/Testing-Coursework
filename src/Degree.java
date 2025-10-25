@@ -34,6 +34,11 @@ public class Degree {
 	    Classification c6 = level6profile.classify();
 	    int cmp = c5.compareTo(c6);
 
+	    System.out.println("---");
+	    System.out.println("level5: " + level5profile.classify() + " isclear: " + level5profile.isClear());
+	    System.out.println("level6: " + level6profile.classify() +  " isclear " + level6profile.isClear());
+	    System.out.println("cmp " + cmp);
+	    
 	    if (cmp == 0) return c5;
 	    if (cmp < 0 && level6profile.isClear()) return c6; // level6 better or clear
 	    if (cmp > 0 && level5profile.isClear()) return c5; // level5 better or clear
