@@ -14,14 +14,15 @@ import org.junit.jupiter.params.provider.EmptySource;
 
 class ProfileTest {
 	
-	// Null and empty list cases (no MethodSource needed)
+// 1 - three tests for each way the input can be invalid
+	// ways 1,2 Null and empty list cases
 	@ParameterizedTest
 	@NullSource
 	@EmptySource
 	void constructorThrowsOnNullOrEmpty(List<Grade> grades) {
 	  assertThrows(IllegalArgumentException.class, () -> new Profile(grades));
 	}
-
+	// way 3 grade too low
 	@DisplayName("Constructor invalid params")
 	@ParameterizedTest
 	@MethodSource("constructorInvalidParams")
@@ -36,6 +37,7 @@ class ProfileTest {
 				List.of(new Grade(18)));
 	}
 	
+// 2 - combination of classification x isClear as equivalence classes
 	@DisplayName("Classification + isClear")
 	@ParameterizedTest
 	@MethodSource("classifyAndIsClearParams")
@@ -48,28 +50,28 @@ class ProfileTest {
 	}
 	private static Stream<Arguments> classifyAndIsClearParams() {
 		return Stream.of(
-				Arguments.of(
-						List.of(new Grade(1)),
+				Arguments.of(  // First + Clear
+						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(1)),
 						Classification.First,
 						true),
-				Arguments.of(
-						List.of(new Grade(1), new Grade(15)),
+				Arguments.of(  // First + not Clear
+						List.of(new Grade(1), new Grade(15),new Grade(1), new Grade(15)),
 						Classification.First,
 						false),
-				Arguments.of(
-						List.of(new Grade(5)),
+				Arguments.of( // Upper Second + Clear
+						List.of(new Grade(5),new Grade(5),new Grade(5),new Grade(5)),
 						Classification.UpperSecond,
 						true),
-				Arguments.of(
-						List.of(new Grade(7), new Grade(15)),
+				Arguments.of( // Upper Second + not Clear
+						List.of(new Grade(7), new Grade(15),new Grade(7), new Grade(15)),
 						Classification.UpperSecond,
 						false),
-				Arguments.of(
-						List.of(new Grade(9)),
+				Arguments.of( // Lower second (always clear)
+						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
 						Classification.LowerSecond,
 						true),
-				Arguments.of(
-						List.of(new Grade(13)),
+				Arguments.of( // Third (always clear)
+						List.of(new Grade(13),new Grade(13),new Grade(13),new Grade(13)),
 						Classification.Third,
 						true));
 				

@@ -15,7 +15,7 @@ public class Profile {
 		for (Grade grade : g) {
 			if (grade.classify() == Classification.Fail) {
 				throw new IllegalArgumentException("Grade cannot be below pass");
-			} // TODO: IT DOESNT CHECK HOW MANY GRADES ARE ON THE LIST !! ?
+			} 
 		}
 		this.grades = Collections.unmodifiableList(new ArrayList<>(g));
 	}

@@ -47,7 +47,6 @@ public class Grade {
         else if (g >= 40) p = 16;
         else if (g >= 35) p = 17;
         else if (g >= 30) p = 18;
-//        else if (g >= 20) p = 19; // ERROR~!
         else if (g >= 0) p = 19;
         else              p = 20; // -1
         

@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
 
 class DegreeTest {
 
-	@DisplayName("Constructor null as argument")
+// Three ways in which inputs can be incalid: 
+	@DisplayName("Constructor null as argument") // #1
 	@MethodSource("nullArgs")
 	@ParameterizedTest
 	public void construtorThrowsOnNullParameter(List<Grade> gradesY2, List<Grade> gradesY3){
@@ -34,7 +35,7 @@ class DegreeTest {
 	    );
 	}
 
-	@DisplayName("Constructor not enough grades")
+	@DisplayName("Constructor not enough grades") // #2
 	@ParameterizedTest
 	@MethodSource("constructorNotEnoughGrades")
 	public void constructorNotEnoughGrades(List<Grade> gradesY2, List<Grade> gradesY3) {
@@ -44,13 +45,17 @@ class DegreeTest {
 				});
 	}
 	private static Stream<Arguments> constructorNotEnoughGrades(){
-		return Stream.of(Arguments.of(
+		return Stream.of(
+				Arguments.of(
 					List.of(new Grade(1),new Grade(1)),
-					List.of(new Grade(4),new Grade(2),new Grade(2),new Grade(2),new Grade(2))
-				));
+					List.of(new Grade(4),new Grade(2),new Grade(2),new Grade(2),new Grade(2))),
+				Arguments.of(
+						List.of(new Grade(4),new Grade(2),new Grade(2),new Grade(2),new Grade(2)),
+						List.of(new Grade(1),new Grade(1)))
+				);
 	}
 	
-	@DisplayName("Constructor Fail in grades")
+	@DisplayName("Constructor Fail in grades") // #3
 	@ParameterizedTest
 	@MethodSource("failInGradesParams")
 	public void failInGrades(List<Grade> gradesY2, List<Grade> gradesY3) {
@@ -60,10 +65,14 @@ class DegreeTest {
 				});
 	}
 	private static Stream<Arguments> failInGradesParams(){
-		return Stream.of(Arguments.of(
+		return Stream.of(
+				Arguments.of(
 					List.of(new Grade(17),new Grade(17),new Grade(17),new Grade(17),new Grade(17)),
-					List.of(new Grade(17),new Grade(17),new Grade(17),new Grade(17),new Grade(17))
-				));
+					List.of(new Grade(17),new Grade(17),new Grade(17),new Grade(17),new Grade(17))),
+				Arguments.of(
+						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(1),new Grade(1)),
+						List.of(new Grade(17),new Grade(17),new Grade(17),new Grade(17),new Grade(17)))
+				);
 	};
 	
 	
@@ -84,11 +93,11 @@ class DegreeTest {
 						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(4)),
 						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(4)),
 						Classification.First),
-				Arguments.of( // Level 6 is better
+				Arguments.of( // Level 6 is better - clear
 						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
 						List.of(new Grade(5),new Grade(5),new Grade(5),new Grade(5)),
 						Classification.UpperSecond),
-				Arguments.of( // Level 5 is better
+				Arguments.of( // Level 5 is better - clear
 						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
 						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
 						Classification.LowerSecond),
@@ -99,7 +108,16 @@ class DegreeTest {
 				Arguments.of(
 						List.of(new Grade(4),new Grade(4),new Grade(4),new Grade(16),new Grade(16)),
 						List.of(new Grade(6),new Grade(6),new Grade(6),new Grade(16), new Grade(16)),
+						Classification.Discretion),
+				Arguments.of( // Level 6 is better - not clear
+						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
+						List.of(new Grade(5),new Grade(5),new Grade(5),new Grade(14),new Grade(14)),
 						Classification.Discretion)
+//				,
+//				Arguments.of( // Level 5 is better - not clear
+//						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
+//						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
+//						Classification.LowerSecond)
 				);
 	}
 }

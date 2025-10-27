@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class GradeTest {
 
-// req1 – TWO tests for inputs below and above the valid range for the constructor.
-
+// 1 – TWO tests for inputs below and above the valid range for the constructor.
 	@DisplayName("Constructor invalid boundaries")
 	@ParameterizedTest
 	@MethodSource("invalidConstructorParams")
@@ -30,15 +29,14 @@ class GradeTest {
 				Arguments.of(-44)
 				);
 	}
-	
-	
-// req2 – ONE test for a valid input, checking that getPoints returns the right value.
+
+// 2 – ONE test for a valid input, checking that getPoints returns the right value.
 	@DisplayName("Constructor valid boundaries")
 	@ParameterizedTest
 	@MethodSource("validConstructorParams")
 	public void constructsAtValidBoundaries(int points) {
 		Grade instance = new Grade(points);
-		assertEquals(instance.getPoints(), points);
+		assertEquals(instance.getPoints(), points); // TODO follow method signature argument order
 	}
 	private static Stream<Arguments> validConstructorParams(){
 		return Stream.of(
@@ -49,11 +47,11 @@ class GradeTest {
 	}
 	
 	
-// req3 - five tests for classify using Classifications as equivalence classes
+// 3 - five tests for classify using Classifications as equivalence classes
 	@DisplayName("Classify Method")
 	@ParameterizedTest
 	@MethodSource("classifyBVAparams")
-	public void classifyMethod(int boundary, Classification result, int stepsFromBoundary){
+	public void classifyMethod(int boundary, Classification result){
 		
 		Grade instance = new Grade(boundary);
 		assertEquals(instance.classify(), result);
@@ -69,7 +67,7 @@ class GradeTest {
 	}
 	
 	
-// req4 - two tests  for inputs beyond and above the valid range for fromPercentage
+// 4 - two tests  for inputs beyond and above the valid range for fromPercentage
 	@DisplayName("fromPercentage Invalid Inputs")
 	@ParameterizedTest
 	@MethodSource("fromPercentageInvalidParams")
@@ -84,7 +82,6 @@ class GradeTest {
 				Arguments.of(-2),
 				Arguments.of(101));
 	}
-
 	
 // req5 - TWENTY tests for fromPercentage, using each point in the 20-point scale as an equivalence class.
 	// int percentage -> int grade 1-20	

@@ -2,8 +2,6 @@ import java.util.List;
 
 public class Degree {
 	// Your additions/changes below this line
-	List<Grade> year2;
-	List<Grade> year3;
 	Profile level5profile;
 	Profile level6profile;
 
@@ -17,8 +15,6 @@ public class Degree {
 		if(failInGradeList(year2) || failInGradeList(year3)) {
 			throw new IllegalArgumentException("Cannot generate a degree with failed grades.");
 		}
-		this.year2 = year2;
-		this.year3 = year3;
 		this.level5profile = new Profile(year2);
 		this.level6profile = new Profile(year3);
 	}
