@@ -8,13 +8,16 @@ public class Grade {
 	}
 
 	public Grade(int p) throws IllegalArgumentException {
+		// Check if the parameter passed to the constructor is within boundaries
 		if(p<1 || p>20) 
 			throw new IllegalArgumentException();
+		// If checks pass assign the passed value to the instance variable
 		points = p;
 	}
 	 
 	// Your additions/changes below this line
-
+	
+	// Classification as specified in the MDX points - grades table
 	public Classification classify() {
         if (points <= 4) return Classification.First;
         if (points <= 8) return Classification.UpperSecond;
@@ -23,11 +26,12 @@ public class Grade {
         return Classification.Fail; // 17–20
 	}
 	
+	// convert grade result in % to 1-20 point scale as specified by MDX uni grading table
+	// return a new grade object with those points 
 	public static Grade fromPercentage(int g) throws IllegalArgumentException {
 		if (g < -1 || g > 100) {
 			throw new IllegalArgumentException();
 		}
-		
 		final int p;
         if      (g >= 80) p = 1;
         else if (g >= 75) p = 2;
@@ -53,9 +57,9 @@ public class Grade {
         return new Grade(p);
 	}
 
+	// increase readability when grades are listed as test inputs
 	@Override
 	public String toString() {
-	    // e.g. "5 points (UpperSecond)"
 	    return "grade: " + classify() + " |";
 	}
 

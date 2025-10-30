@@ -15,14 +15,14 @@ import org.junit.jupiter.params.provider.EmptySource;
 class ProfileTest {
 	
 // 1 - three tests for each way the input can be invalid
-	// ways 1,2 Null and empty list cases
+	// #1,2 - Null and empty list cases
 	@ParameterizedTest
 	@NullSource
 	@EmptySource
 	void constructorThrowsOnNullOrEmpty(List<Grade> grades) {
 	  assertThrows(IllegalArgumentException.class, () -> new Profile(grades));
 	}
-	// way 3 grade too low
+	// #3 - grade too low
 	@DisplayName("Constructor invalid params")
 	@ParameterizedTest
 	@MethodSource("constructorInvalidParams")
@@ -46,7 +46,7 @@ class ProfileTest {
 		Assertions.assertAll(
 				() -> assertEquals(instance.classify(), classify),
 				() -> assertEquals(instance.isClear(), isClear)
-				);
+			);
 	}
 	private static Stream<Arguments> classifyAndIsClearParams() {
 		return Stream.of(

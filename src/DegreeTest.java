@@ -16,8 +16,10 @@ import org.junit.jupiter.api.Test;
 
 class DegreeTest {
 
-// Three ways in which inputs can be incalid: 
-	@DisplayName("Constructor null as argument") // #1
+// Three ways in which inputs can be invalid:
+	
+	// #1 - empty constructor
+	@DisplayName("Constructor null as argument") 
 	@MethodSource("nullArgs")
 	@ParameterizedTest
 	public void construtorThrowsOnNullParameter(List<Grade> gradesY2, List<Grade> gradesY3){
@@ -34,8 +36,9 @@ class DegreeTest {
 	        Arguments.of(null, null)
 	    );
 	}
-
-	@DisplayName("Constructor not enough grades") // #2
+	
+	// #2 - list.size < 4
+	@DisplayName("Constructor not enough grades") 
 	@ParameterizedTest
 	@MethodSource("constructorNotEnoughGrades")
 	public void constructorNotEnoughGrades(List<Grade> gradesY2, List<Grade> gradesY3) {
@@ -55,6 +58,7 @@ class DegreeTest {
 				);
 	}
 	
+	// #3 - fail in grades
 	@DisplayName("Constructor Fail in grades") // #3
 	@ParameterizedTest
 	@MethodSource("failInGradesParams")
@@ -76,15 +80,13 @@ class DegreeTest {
 	};
 	
 	
-// Classifications as equivalence classes
+// Test the classify method with possible classification outputs as equivalence classes
+// Additional tests added to cover all branches
 	@DisplayName("Classify method")
 	@ParameterizedTest
 	@MethodSource("classifyParams")
 	public void classifiesCorrectly(List<Grade> gradesY2, List<Grade> gradesY3, Classification result) {
 		Degree instance = new Degree(gradesY2, gradesY3);
-//		System.out.println("degree: " instance.classify());
-//		System.out.print("profile5: " + instance.level5profile.classify() + "isClear: " + instance.level5profile.isClear());
-//		System.out.println(" profile6: " + instance.level6profile.classify() + "isClear: " + instance.level5profile.isClear());
 		assertEquals(instance.classify(), result);
 	}
 	public static Stream<Arguments> classifyParams(){
@@ -112,12 +114,20 @@ class DegreeTest {
 				Arguments.of( // Level 6 is better - not clear
 						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
 						List.of(new Grade(5),new Grade(5),new Grade(5),new Grade(14),new Grade(14)),
+						Classification.Discretion),
+				Arguments.of( // Level 5 is better - not clear
+						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
+						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
+						Classification.LowerSecond),
+				// test if the grades are not more than 1 level apart
+				Arguments.of( // Level 6 is better - grade 6 more than 1 marking away 
+						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(1)),
+						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
+						Classification.Discretion),
+				Arguments.of( // Level 5 is better - grade 6 more than 1 marking away 
+						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
+						List.of(new Grade(1),new Grade(1),new Grade(1),new Grade(1)),
 						Classification.Discretion)
-//				,
-//				Arguments.of( // Level 5 is better - not clear
-//						List.of(new Grade(9),new Grade(9),new Grade(9),new Grade(9)),
-//						List.of(new Grade(13),new Grade(14),new Grade(14),new Grade(14)),
-//						Classification.LowerSecond)
 				);
 	}
 }
